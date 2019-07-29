@@ -38,3 +38,7 @@ Class Author(object):
             paragraph.append(create_sentence(text, word_freqs))
 
         return '\n\n'.join(paragraph)
+
+if __name__  == '__main__':
+    shelly = Author()
+    shelly.read_text()
