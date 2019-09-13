@@ -2,43 +2,43 @@ import numpy as np
 from typing import Dict, List
 from collections import defaultdict
 
-Class Author(object):
-
-    def read_text(path: str) -> str:    
+class Author:
+    
+    def __init__(self):
+        self.text = None
+        self.word_frequencies = None 
+        
+    def __len__(self):
+        return len(self.text)
+    
+    def read_text(self, path: str) -> str:  
         with open(path) as f:
             text = f.read().strip().lower().split()
-        return text
-
-    def word_frequencies(text: str) -> Dict[str, List[str]]:
-        '''Create a dictionary defining an order 1 model of language'''
-
+        self.text = text
+        
         word_freqs = defaultdict(lambda: [])
 
-        for first_w, second_w in list(zip(text, text[1:])):
+        for first_w, second_w in list(zip(self.text, self.text[1:])):
             word_freqs[first_w].append(second_w)
-        return word_freqs
+            
+        self.word_frequencies = word_freqs
 
-    def create_sentence(text: str, word_freqs: Dict[str, List[str]]) -> str:
+    def create_sentence(self) -> str:
 
-        first_word = np.random.choice(text)
+        first_word = np.random.choice(self.text)
 
         chain = [first_word]
 
         while not '.' in chain[-1]:
-            chain.append(np.random.choice(word_freqs[chain[-1]]))
+            chain.append(np.random.choice(self.word_frequencies[chain[-1]]))
 
         return ' '.join(chain)
 
-    def paragraph(text: str, sentence_num: int=3) -> str:
+    def create_paragraph(self, sentence_num=3) -> str:
 
-        word_freqs = word_frequencies(text)
         paragraph = []
 
-        for _ in range(sentence_num):
-            paragraph.append(create_sentence(text, word_freqs))
-
+        for i, _ in enumerate(range(sentence_num)):
+            sentence = self.create_sentence() 
+            paragraph.append(sentence)
         return '\n\n'.join(paragraph)
-
-if __name__  == '__main__':
-    shelly = Author()
-    shelly.read_text()
