@@ -6,22 +6,32 @@ class Author:
     
     def __init__(self):
         self.text = None
-        self.word_frequencies = None 
+        self.word_frequencies = defaultdict(lambda: [])
         
     def __len__(self):
         return len(self.text)
     
-    def read_text(self, path: str) -> str:  
-        with open(path) as f:
-            text = f.read().strip().lower().split()
-        self.text = text
+    def read_text(self, new_text=None, path=None) -> str:  
+        if path:
+            with open(path) as f:
+                new_text = f.read()
+        split_text = new_text.strip().lower().split()
         
-        word_freqs = defaultdict(lambda: [])
-
+        self.text = split_text
+        
         for first_w, second_w in list(zip(self.text, self.text[1:])):
-            word_freqs[first_w].append(second_w)
+            self.word_frequencies[first_w].append(second_w)
             
-        self.word_frequencies = word_freqs
+    def add_text(self, new_text=None, path=None):
+        if path:
+            with open(path) as f:
+                new_text = f.read()
+        split_text = new_text.strip().lower().split()
+        
+        for first, second in zip(split_text, split_text[1:]):
+            self.word_frequencies[first].append(second)
+            
+        self.text.extend(split_text)
 
     def create_sentence(self) -> str:
 
