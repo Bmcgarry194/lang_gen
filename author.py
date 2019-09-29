@@ -54,7 +54,7 @@ class Author:
 
         paragraph = []
 
-        for i, _ in enumerate(range(sentence_num)):
+        for _ in range(sentence_num):
             sentence = self.create_sentence()
             paragraph.append(sentence)
         return '\n\n'.join(paragraph)
