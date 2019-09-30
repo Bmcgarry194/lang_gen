@@ -8,8 +8,8 @@ class Author:
         self.text = None
         self.word_frequencies = defaultdict(lambda: [])
         
-    def __len__(self):
-        return len(self.text)
+    def __repr__(self):
+        return f'{self.text}'
     
     def read_text(self, new_text=None, path=None) -> str:  
         if path:
