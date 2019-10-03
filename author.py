@@ -43,7 +43,8 @@ class Author:
         first_word = np.random.choice(self.text)
 
         chain = [first_word]
-
+        
+        #This approach could be a problem if there are no periods in the corpus
         while not '.' in chain[-1]:
             chain.append(np.random.choice(self.word_frequencies[chain[-1]]))
 
@@ -58,3 +59,8 @@ class Author:
             sentence = self.create_sentence()
             paragraph.append(sentence)
         return '\n\n'.join(paragraph)
+
+if __name__ == '__main__':
+	author = Author()
+	author.read_text(path='data/dracula.txt')
+	print(author.create_sentence())
